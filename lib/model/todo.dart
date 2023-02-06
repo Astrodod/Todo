@@ -17,12 +17,10 @@ class ToDo {
       ToDo(
         id: '01',
         todoText: 'Wake Up early',
-        isDone: false,
       ),
       ToDo(
         id: '02',
         todoText: 'Morning Exercise',
-        isDone: true,
       ),
       ToDo(
         id: '03',

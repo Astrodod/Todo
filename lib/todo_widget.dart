@@ -115,7 +115,7 @@ class _HomeState extends State<Home> {
         ));
   }
 
-// Handling change function
+// Handling change to tasks function
   void _handleToDOChange(ToDo todo) {
     setState(() {
       todo.isDone = !todo.isDone;
@@ -205,18 +205,37 @@ class _HomeState extends State<Home> {
 //top bar of the widget
   AppBar _buildAppBar() {
     return AppBar(
-        backgroundColor: Colors.grey[300],
-        elevation: 0,
-        title: const ListTile(
-          leading: Icon(
-            Icons.menu,
-            color: Colors.black,
-          ),
-          trailing: Icon(
-            Icons.person,
-            color: Colors.black,
-            size: 30,
-          ),
-        ));
+      backgroundColor: Colors.grey[300],
+      elevation: 0,
+      title: ListTile(
+        leading: const Icon(
+          Icons.person,
+          color: Colors.black,
+          size: 30,
+        ),
+        trailing: PopupMenuButton(
+            itemBuilder: (context) => [
+                  // popupmenu item 1
+                  PopupMenuItem(
+                    value: 1,
+                    // row has two child icon and text.
+                    child: Row(
+                      children: const [
+                        Icon(Icons.chrome_reader_mode),
+                        SizedBox(
+                          // sized box with width 10
+                          width: 10,
+                        ),
+                        Text("About"),
+                      ],
+                    ),
+                  )
+                ]
+            // Icon(
+            //   Icons.menu,
+            //   color: Colors.black,
+            ),
+      ),
+    );
   }
 }
