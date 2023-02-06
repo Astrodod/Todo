@@ -122,21 +122,44 @@ class _HomeState extends State<Home> {
     });
   }
 
+//deletion of item with the help of their id
   void _onDeleteToDoItem(String id) {
     setState(() {
       todosList.removeWhere((item) => item.id == id);
     });
   }
 
+//Adding tasks in the screen
   void _addTextItem(String toDo) {
-    setState(() {
-      todosList.add(ToDo(
-          id: DateTime.now().microsecondsSinceEpoch.toString(),
-          todoText: toDo));
-    });
-    _todoController.clear();
+    if (toDo.isNotEmpty) {
+      setState(() {
+        todosList.add(ToDo(
+            id: DateTime.now().microsecondsSinceEpoch.toString(),
+            todoText: toDo));
+      });
+      _todoController.clear();
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Error'),
+            content: const Text('Please enter some tasks'),
+            actions: [
+              TextButton(
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
+// Function to search text
   void _search(String enteredKeyword) {
     List<ToDo> results = [];
     if (enteredKeyword.isEmpty) {
@@ -153,6 +176,7 @@ class _HomeState extends State<Home> {
     });
   }
 
+//Creating a widget for the search box
   Widget searchBox() {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -166,7 +190,7 @@ class _HomeState extends State<Home> {
               color: Colors.black,
               size: 20,
             ),
-            //To make the size of search icon in searchBox perfect
+            //To make the size of search icon in searchBox fit
             prefixIconConstraints: BoxConstraints(
               maxHeight: 20,
               minWidth: 25,
@@ -178,6 +202,7 @@ class _HomeState extends State<Home> {
     );
   }
 
+//top bar of the widget
   AppBar _buildAppBar() {
     return AppBar(
         backgroundColor: Colors.grey[300],
